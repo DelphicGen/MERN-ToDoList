@@ -1,0 +1,376 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Sidebar */
+
+.sidebar {
+    height: calc(100vh - 60px);
+    width: 250px;
+    margin: 30px 0;
+    padding-top: 80px;
+    border-right: 3px solid #3F8EFC;
+    position: fixed;
+    overflow: auto;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+}
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    padding: 10px 0;
+    margin: 0 0 0 auto;
+    font-weight: bold;
+    font-size: 20px;
+    width: 200px;
+    padding-left: 5px;
+}
+
+.sidebar a:focus {
+    outline: none;
+}
+
+.today-after, .upcoming-after, .completed-after {
+    border-bottom: solid 2px #3F8EFC;
+    transform: scaleX(0);  
+    transition: transform 200ms ease-in-out;
+}
+
+.today:focus + .today-after {
+    transform-origin: 100% 50%;
+    transform: scaleX(1);
+}
+
+.upcoming:focus + .upcoming-after {
+    transform-origin: 100% 50%;
+    transform: scaleX(1);
+}
+
+.completed:focus + .completed-after {
+    transform-origin: 100% 50%;
+    transform: scaleX(1);
+}
+
+.active {
+    color: #3F8EFC !important;
+}
+
+/* Content */
+
+.content {
+    padding: 40px 50px 40px 300px;
+}
+
+/* Input */
+
+.after-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.wrapper {
+    width: fit-content;
+}
+
+.input-bar {
+    border: none;
+    padding: 10px;
+    border-bottom: solid 1px #3F8EFC;
+    width: 100%;
+}
+
+.input-bar:focus {
+    outline: none;
+}
+
+.input-bar-after {
+    border-bottom: solid 1px #3F8EFC;
+    transform: scaleX(0);  
+    transition: transform 200ms ease-in-out;
+}
+
+.input-bar:focus + .input-bar-after {
+    transform: scaleX(1);
+}
+
+/* Select */
+.select {
+    margin-top: 40px;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px #3F8EFC;
+}
+
+.select:focus {
+    outline: none;
+}
+
+.select-after {
+    border-bottom: solid 1px #3F8EFC;
+    transform: scaleX(0);  
+    transition: transform 200ms ease-in-out;
+}
+
+.select:focus + .select-after {
+    transform: scaleX(1);
+}
+
+/* Table */
+.table-container {
+    height: 420px;
+    overflow: auto;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background-color: #7FDEFF;
+    border-radius: 5px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background-color: #3F8EFC;
+}
+
+.table-container::-webkit-scrollbar-thumb:vertical:active, .table-container::-webkit-scrollbar-thumb:vertical:hover {
+    background-color: #D81159;
+}
+
+.table {
+    border-collapse: collapse;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.table th {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: left;
+}
+
+.column {
+    display: inline-block;
+    height: 100%;
+    padding: 20px 50px;
+}
+
+.column:hover {
+    background: transparent radial-gradient(circle, transparent 1%, #FFF 1%) center/15000%;
+}
+
+.column:active {
+    background-color: rgba(128, 128, 128, .2);
+    background-size: 100%;
+    transition: background 0s;
+}
+
+.title, .priority, .due, .action {
+    margin-left: 12px;
+    display: inline-block;
+    width: fit-content;
+    transition: all .3s ease-in-out;
+    opacity: 0;
+}
+
+.show-arrow {
+    opacity: 1 !important;
+}
+
+.spin-arrow {
+    transform: rotate(180deg);
+}
+
+.table td, .table th {
+    border: none;
+    border-bottom: solid 1px #3F8EFC;
+}
+
+.table td {
+    padding: 20px 10px;
+}
+
+/* Button */
+.button {
+    border: none;
+    background-color: #3F8EFC;
+    color: #FFF;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+
+.gray {
+    background-color: #808080;
+    color: #000;
+}
+
+.button, .column {
+    background-position: center;
+    transition: background 0.8s;
+}
+
+.button:hover, .button:focus {
+    background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+    outline: none;
+    border: none;
+}
+
+.gray:hover, .gray:focus {
+    background: #909090 radial-gradient(circle, transparent 1%, #909090 1%) center/15000%;
+}
+
+.button:active {
+    background-color: #6eb9f7;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+.gray:active {
+    background-color: #A0A0A0 !important;
+}
+
+
+/* Add */
+.add-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-form {
+    height: 50%;
+    width: 30%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Input2 */
+.range-container {
+    width: 100%;
+    position: relative;
+}
+
+.range-value{
+    position: absolute;
+    top: -180%;
+    left: -2.5%;
+}
+
+.range-value span{
+    padding: 8px 16px;
+    text-align: center;
+    background: #3F8EFC;
+    color: #FFF;
+    font-size: 12px;
+    position: absolute;
+    /* transform: translate(-50%, 0); */
+    border-radius: 4px;
+}
+.range-value span:before{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 10px solid #3F8EFC;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    top: 90%;
+    left: 0;
+}
+
+.range-input {
+    width: 100%;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .sidebar {
+        background-color: #034748;
+        display: flex;
+        justify-content: center;
+        bottom: 0;
+        height: auto;
+        width: 100%;
+        margin: 0;
+        overflow: hidden;
+        padding-top: 0;
+        border-right: none;
+    }
+
+    .sidebar a {
+        color: #FFF;
+        margin: 0 20px;
+        width: auto;
+        padding-left: 5px;
+    }
+
+    .content {
+        padding: 40px 50px;
+    }
+
+    .table {
+        margin-top: 20px;
+    }
+
+    .table-container {
+        height: calc(100vh - 200px);
+    }
+
+    .table td, .table th {
+        min-width: 200px;
+    }
+
+    .button {
+        margin-top: 10px;
+    }
+
+    .add-form {
+        width: 50%;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .content {
+        padding: 40px 10px;
+    }
+
+    .table-container {
+        height: calc(100vh - 180px);
+    }
+
+    .sidebar a {
+        font-size: 16px;
+    }
+
+    .add-form {
+        width: 60%;
+    }
+}
