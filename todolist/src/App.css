@@ -40,7 +40,7 @@
     outline: none;
 }
 
-.today-after, .upcoming-after, .completed-after {
+.today-after, .upcoming-after, .completed-after, .missed-after {
     border-bottom: solid 2px #3F8EFC;
     transform: scaleX(0);  
     transition: transform 200ms ease-in-out;
@@ -57,6 +57,11 @@
 }
 
 .completed:focus + .completed-after {
+    transform-origin: 100% 50%;
+    transform: scaleX(1);
+}
+
+.missed:focus + .missed-after {
     transform-origin: 100% 50%;
     transform: scaleX(1);
 }

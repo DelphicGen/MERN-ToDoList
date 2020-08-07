@@ -11,10 +11,12 @@ const Sidebar = ({ active, setActive }) => {
 
                 <a href="#" className={`${active === "today" && 'active'} today`} onClick={() => setActive('today')}>Today</a>
                 <div className="today-after"></div>
-                <a href="#" className={`${active === "upcoming" && 'active'} upcoming`} onClick={() => setActive('upcoming')}>Upcoming</a>
+                <a href="#"  className={`${active === "upcoming" && 'active'} upcoming`} onClick={() => setActive('upcoming')}>Upcoming</a>
                 <div className="upcoming-after"></div>
-                <a href="#" className={`${active === "completed" && 'active'} completed`} onClick={() => setActive('completed')}>Completed</a>
+                <a href="#"  className={`${active === "completed" && 'active'} completed`} onClick={() => setActive('completed')}>Completed</a>
                 <div className="completed-after"></div>
+                <a href="#"  className={`${active === "missed" && 'active'} completed`} onClick={() => setActive('missed')}>Missed</a>
+                <div className="missed-after"></div>
 
             </div>
         </React.Fragment>

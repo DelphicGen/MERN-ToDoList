@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { todoContext } from '../App';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Input from '../components/Input';
 import List from '../components/List';
 import Button from '../components/Button';
+import axios from 'axios';
 
 const Home = () => {
 
     const history = useHistory();
-    const {todoList, setTodoList} = useContext(todoContext);
+    const [todoList, setTodoList] = useState([]);
     
     const [active, setActive] = useState('today');
     const [query, setQuery] = useState('');
@@ -18,73 +18,53 @@ const Home = () => {
     const [secondaryData, setSecondaryData] = useState(data);
 
     const onClickHandler = () => {
-        // history.push('/add');
+        history.push('/add');
     }
 
     const handleSearch = (e) => {
         setQuery(e.target.value);
     }
 
-    // const iterateTodo = (row) => {
-    //     let tempTodo = [...todoList]
-    //     let tempData = [...data]
-    //     let index;
-    //     let completedTodo;
-    //     tempData.forEach((todo, index) => {
-    //         if(todo.title === row.title && todo.priority === row.priority && todo.dueDate === row.dueDate) {
-    //             todo.completed = true;
-    //             index = index;
-    //             completedTodo = todo;
-    //             return;
-    //         }
-    //     })
-    //     tempTodo[index] = completedTodo;
-    //     return tempTodo;
-    // }
+    const getData = () => {
+        axios.get("http://localhost:9000/api/todolist/")
+            .then(response => setTodoList(response.data))
+    }
 
     const handleCompleted  = (row) => {
         let tempTodo = [...todoList]
-        let tempData = [...data]
-        let index;
-        let completedTodo;
-        tempData.forEach((todo, index) => {
+        tempTodo.forEach((todo, i) => {
             if(todo.title === row.title && todo.priority === row.priority && todo.dueDate === row.dueDate) {
-                todo.completed = true;
-                index = index;
-                completedTodo = todo;
-                return;
+                axios.put(`http://localhost:9000/api/todolist/${row._id}`, {})
+                    .then(response => {
+                        console.log(JSON.stringify(response));
+                        getData();
+                    })
             }
         })
-        tempTodo[index] = completedTodo;
-        setTodoList(tempTodo);
     }
 
     const handleDelete = (row) => {
-        let tempTodo = [...todoList];
-        tempTodo = tempTodo.filter(todo => {
-            console.log(todo.title !== row.title || todo.priority !== row.priority || todo.dueDate !== row.dueDate)
-            return (todo.title !== row.title || todo.priority !== row.priority || todo.dueDate !== row.dueDate)
-        })
-
-        // or
-        // tempTodo.forEach((todo, index) => {
-        //     if(todo.title === row.title && todo.priority === row.priority && todo.dueDate === row.dueDate) {
-        //         tempTodo.splice(index, 1);
-        //         return;
-        //     }
-        // })
-        setTodoList(tempTodo);
+        axios.delete(`http://localhost:9000/api/todolist/${row._id}`)
+            .then(response => {
+                console.log(JSON.stringify(response));
+                getData();
+            })
     }
+
+    useEffect(() => {
+        getData();
+    }, [])
 
     useEffect(() => {
         let tempData = [];
         let today = new Date(),
-        date = today.getFullYear() + '-' + ((today.getMonth() + 1) < 10 ? `0${today.getMonth() + 1}` : today.getMonth() + 1) + '-' + today.getDate();
-        
+        date = today.getFullYear() + '-' + ((today.getMonth() + 1) < 10 ? `0${today.getMonth() + 1}` : today.getMonth() + 1) + '-' + ((today.getDate()) < 10 ? `0${today.getDate()}` : today.getDate());
         todoList.forEach(todo => {
+
             if(todo.dueDate === date && active === 'today' && !todo.completed) tempData.push(todo);
             else if(active === 'completed' && todo.completed) tempData.push(todo);
-            else if(active === 'upcoming' && !todo.completed) tempData.push(todo);
+            else if(active === 'upcoming' && !todo.completed && todo.dueDate > date) tempData.push(todo);
+            else if(active === 'missed' && !todo.completed && todo.dueDate < date) tempData.push(todo);
         })
 
         setData(tempData);
